@@ -1,0 +1,50 @@
+{
+  "api_compatibility": "14",
+  "space": "Bytespeicher",
+  "logo": "https://status.bytespeicher.org/static/images/logo.jpg",
+  "url": "https://technikkultur-erfurt.de",
+  "location": {
+    "address": "Liebknechtstrasse 8, 99085 Erfurt, Germany",
+    "lat": 50.98271,
+    "lon": 11.03965,
+    "timezone": "Europe/Berlin"
+  },
+  "spacenet": {
+    "spacenet": false,
+    "spacesaml": false
+  },
+  "state": {
+    "open": false,
+    "lastchange": 0,
+    "message": "No devices connected",
+    "icon": {
+      "open": "https://status.bytespeicher.org/static/images/status_open.png",
+      "closed": "https://status.bytespeicher.org/static/images/status_closed.png"
+    }
+  },
+  "contact": {
+    "phone": "+493617929903",
+    "irc": "irc://irc.hackint.eu/bytespeicher",
+    "twitter": "@Bytespeicher_ef",
+    "facebook": "https://www.facebook.com/Bytespeicher",
+    "email": "kontakt@technikkultur-erfurt.de",
+    "ml": "bytespeicher@lists.bytespeicher.org",
+    "matrix": "https://erfurt.chat/#/room/#bytespeicher:erfurt.chat"
+  },
+  "sensors": {
+  },
+  "feeds": {
+    "blog": {
+      "type": "rss",
+      "url": "https://technikkultur-erfurt.de/feed/"
+    },
+    "wiki": {
+      "type": "rss",
+      "url": "https://wiki.technikkultur-erfurt.de/feed.php"
+    },
+    "calendar": {
+      "type": "ical",
+      "url": "https://calendar.google.com/calendar/ical/2eskb61g20prl65k2qd01uktis%40group.calendar.google.com/public/basic.ics"
+    }
+  }
+}
