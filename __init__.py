@@ -1,8 +1,10 @@
 import connexion
-import multiprocessing
+import errno
+import sys
 
 from app.config import config
 from app.data import data
+from app.pluginCollection import pluginCollection
 import app.templateFilters as templateFilters
 
 
@@ -24,6 +26,12 @@ def initApp() -> connexion:
 
     # Initialize own jinja2 filters
     templateFilters.initialize(app)
+
+    # Initialize plugins
+    try:
+        pluginCollection()
+    except LookupError:
+        sys.exit(errno.EINTR)
 
     print('Hackspace Status API started successfully')
     return app
