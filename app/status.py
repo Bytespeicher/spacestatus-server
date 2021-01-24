@@ -3,6 +3,7 @@ import flask
 import os
 
 from app.data import data
+from app.pluginCollection import pluginCollection
 
 
 def home() -> str:
@@ -74,6 +75,8 @@ def set(received: dict):
     # Update open state if changes
     if (data().getStateOpen(host) != received['state']['open']):
         data().setStateOpen(host, received['state']['open'])
+        # Run plugin hook
+        pluginCollection().onStateOpenChange(received['state']['open'])
 
     data().setStateLastchange(host, received['state']['lastchange'])
     data().commit(host)

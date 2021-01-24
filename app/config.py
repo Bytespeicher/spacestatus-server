@@ -1,4 +1,5 @@
 import os
+import pydeepmerge
 import sys
 import yaml
 
@@ -76,6 +77,24 @@ class config:
 
     def getConfig(self) -> dict:
         return self.__config
+
+    def getPluginConfig(self, plugin: str) -> dict:
+        pluginHostConfig = {
+            k: (v['plugins'][plugin] if plugin in v['plugins'] else {})
+            for k, v in self.__config['hosts'].items()
+        }
+
+        try:
+            pluginConfig = self.__config['plugins'][plugin]
+        except KeyError:
+            pluginConfig = {}
+
+        for host, hostConfig in pluginHostConfig.items():
+            pluginHostConfig[host] = pydeepmerge.deep_merge(
+                pluginConfig, hostConfig
+            )
+
+        return pluginHostConfig
 
     def getHostfiles(self) -> dict:
         """Get dict of hosts (key) with hostfile (value)
