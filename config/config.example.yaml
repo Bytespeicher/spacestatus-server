@@ -1,0 +1,4 @@
+hosts:
+  status.bytespeicher.org:
+    file: status.bytespeicher.org.json
+    key: THIS_IS_THE_API_KEY

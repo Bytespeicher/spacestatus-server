@@ -1,0 +1,83 @@
+<!doctype html>
+<html lang="en">
+<head>
+	<meta charset="utf-8" />
+	<title>Bytespeicher - Status</title>
+	<meta name="description" content="">
+	<meta name="author" content="">
+	
+	<!-- Mobile Specific Metas -->
+	<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1" /> 
+	<script type="text/javascript">
+		var browser			= navigator.userAgent;
+		var browserRegex	= /(Android|BlackBerry|IEMobile|Nokia|iP(ad|hone|od)|Opera M(obi|ini))/;
+		var isMobile		= false;
+		if(browser.match(browserRegex)) {
+			isMobile			= true;
+			addEventListener("load", function() { setTimeout(hideURLbar, 0); }, false);
+			function hideURLbar(){
+				window.scrollTo(0,1);
+			}
+		}
+	</script>
+	
+	<!-- CSS -->
+	<link rel="stylesheet" href="static/css/base.css">
+	<link rel="stylesheet" href="static/css/amazium.css">
+	<link rel="stylesheet" href="static/css/layout.css">
+
+	<!-- No favicon -->
+        <link rel="icon" href="data:;base64,iVBORw0KGgo=">	
+	
+	<style>
+		.green { color: #3d9f35; }
+		.red   { color: #832c2c; }
+		.orange{ color: #a28c2c; }
+	</style>
+</head>
+<body>
+
+<div class="row">
+	<div class="grid_12">
+		<h1>Bytespeicher - Status</h1>
+		<hr>
+	</div>
+</div>
+
+<div class="row">
+		<div class="grid_3">
+			{% if data.state.open %}
+			<img src="{{ data.state.icon.open }}" style="width:90%">
+			{% else %}
+			<img src="{{ data.state.icon.closed }}" style="width:90%">
+			{% endif %}
+		</div>
+		<div class="grid_9">
+			{% if data.state.open %}
+				<h2>Der Bytespeicher ist <span class="green">offen</span>.</h2>
+			{% elif data.state.open is none %}
+				<h2>Der Bytespeicher ist <span class="orange">undefiniert</span>.</h2>
+			{% else %}
+				<h2>Der Bytespeicher ist <span class="red">geschlossen</span>.</h2>
+			{% endif %}
+			<p>{{ data.state.message }}</p>
+			<p>People present: {{ data.sensors.people_now_present[0].value }}</br>
+			{% if data.sensors.people_now_present[0].value > 0 %}
+                        Names: {{ data.sensors.people_now_present[0].names | join(', ') }}</p>
+			{% endif %}
+			<p><strong>Letzte Änderung:</strong> {{ data.state.lastchange | strftime('%d.%m.%Y um %H:%M:%S')}}</p>
+			{% if data.sensors.temperature %}
+			<h4>Temperatur</h4>
+			<p>
+				{% for temp in data.sensors.temperature %}
+				<strong>{{ temp.location|capitalize }}:</strong> {{ temp.value }} {{ temp.unit }}<br/>
+				{% endfor %}
+			</p>
+			{% endif %}
+		</div>
+
+    <hr>
+</div>
+
+</body>
+</html>

@@ -1,0 +1,157 @@
+openapi: 3.0.0
+servers:
+- url: http://localhost:5000/
+info:
+  title: Hackspace Status API
+  description: This API allows to control your local hackspace status
+  version: "1.0"
+paths:
+  /:
+    get:
+      tags:
+        - Status
+      operationId: app.status.home
+      summary: Status homepage of the hackspace
+      responses:
+        200:
+          description: OK
+          content:
+            text/html:
+              schema:
+                type: string
+  /status.json:
+    get:
+      tags:
+        - Status
+      operationId: app.status.json
+      summary: Status of the hackspace
+      responses:
+        200:
+          description: OK
+  /static/{filetype}/{filename}:
+    get:
+      tags:
+        - Static
+      operationId: app.status.static
+      summary: Delivers static files (CSS, Images, JS)
+      parameters:
+        - name: filetype
+          in: path
+          required: true
+          schema:
+            type: string
+            enum: [images, js, css]
+        - name: filename
+          in: path
+          required: true
+          schema:
+            type: string
+            pattern: "^[a-zA-Z0-9_-]*\\.[a-zA-Z0-9]*$"         
+      responses:
+        200:
+          description: OK
+  /api/v1/status:
+    put:
+      tags:
+        - Status
+      operationId: app.status.set
+      summary: Set status of the hackspace
+      responses:
+        200:
+          description: OK (successfully authenticated)
+        401:
+          description: Unauthorized (unsuccessfully authenticated)
+      requestBody:
+        content:
+          application/json:
+            schema:
+              x-body-name: received
+              $ref: '#/components/schemas/status'
+      security:
+        - api_key: []
+components:
+  schemas:
+    peopleNames:
+      type: string
+      description: Name of present people
+    sensorsTemperature:
+      type: object
+      required:
+        - value
+        - unit
+        - location
+      properties:
+        value:
+          type: number
+          description: The sensor value
+          example: 16.5
+        unit:
+          type: string
+          description: The unit of the sensor value.
+          enum: ['°C', '°F', 'K', '°De', '°N', '°R', '°Ré', '°Rø']
+          example: °C
+        location:
+          type: string
+          description: The location of your sensor such as Outside, Inside, Ceiling, Roof or Room 1.
+          example: Outside
+        name:
+          type: string
+          description: This field is an additional field to give your sensor a name. This can be useful if you have multiple sensors in the same location.
+        description:
+          type: string
+          description: An extra field that you can use to attach some additional information to this sensor instance.
+    sensorsPeopleNowPresent:
+      type: object
+      required:
+        - value
+      properties:
+        value:
+          type: integer
+          description: Number of people in hackspace
+          example: 42
+        names:
+          type: array
+          description: Array of names of present people
+          items:
+            $ref: '#/components/schemas/peopleNames'
+    status:
+      type: object
+      required:
+        - state
+      properties:
+        sensors:
+          type: object
+          required:
+            - people_now_present
+          properties:
+            temperature:
+              type: array
+              description: Temperature sensor.
+              items:
+                $ref: '#/components/schemas/sensorsTemperature'
+            people_now_present:
+              type: array
+              description: Specify the number of people that are currently in your space. Optionally you can define a list of names.
+              items:
+                $ref: '#/components/schemas/sensorsPeopleNowPresent'
+              minItems: 1
+        state:
+          type: object
+          required:
+            - open
+            - lastchange
+          properties:
+            open:
+              type: boolean
+              description: State of hackspace
+              example: true
+            lastchange:
+              type: integer
+              description: Timestamp of last status change
+              example: 1610112309
+  securitySchemes:
+    api_key:
+      type: apiKey
+      name: X-Hackspace-API-Key
+      in: header
+      x-apikeyInfoFunc: app.apikey.auth
