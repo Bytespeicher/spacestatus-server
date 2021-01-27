@@ -2,6 +2,8 @@ hosts:
   status.bytespeicher.org:
     file: status.bytespeicher.org.json
     key: THIS_IS_THE_API_KEY
+    # key:
+    #   "/api/v1/status": THIS_IS_THE_API_KEY_FOR_URL_RULE
     plugins:
       twitter:
         enabled: true

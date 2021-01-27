@@ -18,7 +18,18 @@ def auth(token: str, required_scopes=None) -> dict:
     dict
         Informations about user (empty, not used)
     """
-    if token != config().getKey(connexion.request.headers['Host']):
-        raise connexion.exceptions.OAuthProblem('Authentication error')
+    authKey = config().getKey(connexion.request.headers['Host'])
+    if (isinstance(authKey, str)):
+        # Validate against single auth key
+        if token == authKey:
+            return {}
+    elif (isinstance(authKey, dict)):
+        # Validate against url rule name auth key
+        try:
+            if token == authKey[str(connexion.request.url_rule)]:
+                return {}
+        except KeyError:
+            pass
 
-    return {}
+    # No valid key found
+    raise connexion.exceptions.OAuthProblem('Authentication error')
