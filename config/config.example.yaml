@@ -3,7 +3,8 @@ hosts:
     file: status.bytespeicher.org.json
     key: THIS_IS_THE_API_KEY
     # key:
-    #   "/api/v1/status": THIS_IS_THE_API_KEY_FOR_URL_RULE
+    #   "/api/v1/status": THIS_IS_THE_API_KEY_FOR_THIS_URL_RULE
+    #   "/api/v1/sensors/temperature": THIS_IS_THE_API_KEY_FOR_THIS_URL_RULE
     plugins:
       twitter:
         enabled: true

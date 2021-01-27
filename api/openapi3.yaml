@@ -69,12 +69,31 @@ paths:
               $ref: '#/components/schemas/status'
       security:
         - api_key: []
+  /api/v1/sensors/temperature:
+    put:
+      tags:
+        - Sensors
+      operationId: app.status.setTemperature
+      summary: Set sensors of the hackspace
+      responses:
+        200:
+          description: OK (successfully authenticated)
+        401:
+          description: Unauthorized (unsuccessfully authenticated)
+      requestBody:
+        content:
+          application/json:
+            schema:
+              x-body-name: received
+              $ref: '#/components/schemas/sensorsTemperature'
+      security:
+        - api_key: []
 components:
   schemas:
     peopleNames:
       type: string
       description: Name of present people
-    sensorsTemperature:
+    temperature:
       type: object
       required:
         - value
@@ -128,7 +147,7 @@ components:
               type: array
               description: Temperature sensor.
               items:
-                $ref: '#/components/schemas/sensorsTemperature'
+                $ref: '#/components/schemas/temperature'
             people_now_present:
               type: array
               description: Specify the number of people that are currently in your space. Optionally you can define a list of names.
@@ -149,6 +168,21 @@ components:
               type: integer
               description: Timestamp of last status change
               example: 1610112309
+    sensorsTemperature:
+      type: object
+      required:
+        - sensors
+      properties:
+        sensors:
+          type: object
+          required:
+            - temperature
+          properties:
+            temperature:
+              type: array
+              description: Temperature sensor.
+              items:
+                $ref: '#/components/schemas/temperature'
   securitySchemes:
     api_key:
       type: apiKey

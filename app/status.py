@@ -54,6 +54,26 @@ def json() -> dict:
     return data().get(connexion.request.headers['Host'])
 
 
+def __updateTemperature(host: str, received: dict):
+    """Update sensor temperature data
+
+    Parameters
+    ----------
+    received : dict
+        Received api data
+    """
+    try:
+        if len(received['sensors']['temperature']) > 0:
+            data().setSensorsTemperature(
+                host,
+                received['sensors']['temperature']
+            )
+        else:
+            data().removeSensorsTemperature(host)
+    except KeyError:
+        pass
+
+
 def set(received: dict):
     """Set data received by api
 
@@ -65,12 +85,11 @@ def set(received: dict):
     # Get requested host
     host = connexion.request.headers['Host']
 
-    # Update current sensor data
+    # Update current sensor people data
     data().setSensorsPeople(host, received['sensors']['people_now_present'])
-    if 'temperature' in received['sensors']:
-        data().setSensorsTemperature(host, received['sensors']['temperature'])
-    else:
-        data().removeSensorsTemperature(host)
+
+    # Update current sensor temperature data
+    __updateTemperature(host, received)
 
     # Update open state if changes
     if (data().getStateOpen(host) != received['state']['open']):
@@ -79,6 +98,25 @@ def set(received: dict):
         pluginCollection().onStateOpenChange(received['state']['open'])
 
     data().setStateLastchange(host, received['state']['lastchange'])
+    data().commit(host)
+
+    return connexion.NoContent, 200
+
+
+def setTemperature(received: dict):
+    """Set data received by api
+
+    Parameters
+    ----------
+    received : dict
+        Received api data
+    """
+    # Get requested host
+    host = connexion.request.headers['Host']
+
+    # Update current sensor temperature data
+    __updateTemperature(host, received)
+
     data().commit(host)
 
     return connexion.NoContent, 200
