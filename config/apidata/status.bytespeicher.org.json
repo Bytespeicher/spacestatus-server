@@ -1,5 +1,7 @@
 {
-  "api_compatibility": "14",
+  "api_compatibility": [
+    "14"
+  ],
   "space": "Bytespeicher",
   "logo": "https://status.bytespeicher.org/static/images/logo.jpg",
   "url": "https://technikkultur-erfurt.de",
