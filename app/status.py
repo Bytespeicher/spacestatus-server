@@ -97,6 +97,12 @@ def set(received: dict):
         # Run plugin hook
         pluginCollection().onStateOpenChange(received['state']['open'])
 
+    # Update or remove state message
+    try:
+        data().setStateMessage(host, received['state']['message'])
+    except KeyError:
+        data().setStateMessage(host, None)
+
     data().setStateLastchange(host, received['state']['lastchange'])
     data().commit(host)
 

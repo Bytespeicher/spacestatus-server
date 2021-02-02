@@ -168,6 +168,10 @@ components:
               type: integer
               description: Timestamp of last status change
               example: 1610112309
+            message:
+              type: string
+              description: Connection message
+              example: "3 devices connected"
     sensorsTemperature:
       type: object
       required:
