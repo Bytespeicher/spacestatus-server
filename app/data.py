@@ -179,3 +179,24 @@ class data:
             Timestamp of last state change
         """
         self.__data[host]['state']['lastchange'] = lastChange
+
+    def setStateMessage(self, host: str, message: str):
+        """Set state message
+
+        Parameters
+        ----------
+        host : str
+            Hostname
+        message : str
+            State message
+        """
+        if (message is not None):
+            self.__data[host]['state']['message'] = message
+        else:
+            try:
+                self.__data[host]['state'].pop('message')
+            except KeyError:
+                return False
+                pass
+
+        return True
