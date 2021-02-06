@@ -61,9 +61,11 @@
 				<h2>Der Bytespeicher ist <span class="red">geschlossen</span>.</h2>
 			{% endif %}
 			<p>{{ data.state.message }}</p>
+			{% if data.sensors.people_now_present %}
 			<p>People present: {{ data.sensors.people_now_present[0].value }}</br>
 			{% if data.sensors.people_now_present[0].value > 0 %}
                         Names: {{ data.sensors.people_now_present[0].names | join(', ') }}</p>
+			{% endif %}
 			{% endif %}
 			<p><strong>Letzte Änderung:</strong> {{ data.state.lastchange | strftime('%d.%m.%Y um %H:%M:%S')}}</p>
 			{% if data.sensors.temperature %}
