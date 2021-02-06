@@ -22,7 +22,7 @@ def initApp() -> connexion:
     app = connexion.App("Hackspace Status API", specification_dir='./')
 
     # Read the openapi yaml file to configure the endpoints
-    app.add_api('api/openapi3.yaml', {"swagger_ui": False})
+    app.add_api('api/openapi3.yaml', options={"swagger_ui": False})
 
     # Initialize own jinja2 filters
     templateFilters.initialize(app)
