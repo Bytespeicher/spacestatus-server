@@ -1,6 +1,6 @@
 hosts:
-  status.bytespeicher.org:
-    file: status.bytespeicher.org.json
+  status.example.org:
+    file: status.example.org.json
     key: THIS_IS_THE_API_KEY
     # key:
     #   "/api/v1/status": THIS_IS_THE_API_KEY_FOR_THIS_URL_RULE
@@ -17,7 +17,7 @@ hosts:
         wordlist:
           name:
             - "The space"
-            - "Bytespeicher"
+            - "Example space"
 plugins:
   twitter:
     wordlist:
