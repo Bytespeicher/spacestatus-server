@@ -1,0 +1,12 @@
+[Unit]
+Description=Spacestatus server
+After=network.target
+
+[Service]
+User=spacestatus
+WorkingDirectory=/home/spacestatus/spacestatus-server
+ExecStart=/home/spacestatus/virtualenv3/bin/gunicorn --workers 1 --bind [::]:5000 __init__:app
+Restart=no
+
+[Install]
+WantedBy=multi-user.target
