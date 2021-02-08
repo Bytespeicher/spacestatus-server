@@ -9,7 +9,7 @@ Flask/Connexion based web application providing a hackspace status website and J
 ### System (Debian-related)
 * git
 * python3 (>=3.7)
-* python3-virtualenv
+* python3-venv
 
 ### Python modules
 * see [requirements.txt](requirements.txt)
@@ -26,7 +26,7 @@ After your installation spacestatus-server serves on port 5000 on all interfaces
 1. Install system requirements
     ```shell
     sudo apt-get update
-    sudo apt-get install python3-virtualenv git
+    sudo apt-get install python3-venv git
     ```
 
 2. Create spacestatus user
@@ -72,7 +72,7 @@ After your installation spacestatus-server serves on port 5000 on all interfaces
 
 1. Copy systemd unit file
     ```shell
-    sudo cp ~/spacestatus-server/contrib/spacestatus-server.service /etc/systemd/system/spacestatus-server.service
+    sudo cp /home/spacestatus/spacestatus-server/contrib/spacestatus-server.service /etc/systemd/system/spacestatus-server.service
     ```
 
 2. Adapt /etc/systemd/system/spacestatus-server.service if service should not listen on all interfaces
