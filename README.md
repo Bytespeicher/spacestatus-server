@@ -26,7 +26,7 @@ After your installation spacestatus-server serves on port 5000 on all interfaces
 1. Install system requirements
     ```shell
     sudo apt-get update
-    sudo apt-get install python3-virtualenv
+    sudo apt-get install python3-virtualenv git
     ```
 
 2. Create spacestatus user
