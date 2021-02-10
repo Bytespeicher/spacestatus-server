@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
 	<meta charset="utf-8" />
-	<title>Bytespeicher - Status</title>
+	<title>{{ data.space }} - Status</title>
 	<meta name="description" content="">
 	<meta name="author" content="">
 	
@@ -39,7 +39,7 @@
 
 <div class="row">
 	<div class="grid_12">
-		<h1>Bytespeicher - Status</h1>
+		<h1>{{ data.space }} - Status</h1>
 		<hr>
 	</div>
 </div>
@@ -54,11 +54,11 @@
 		</div>
 		<div class="grid_9">
 			{% if data.state.open %}
-				<h2>Der Bytespeicher ist <span class="green">offen</span>.</h2>
+				<h2>Der {{ data.space }} ist <span class="green">offen</span>.</h2>
 			{% elif data.state.open is none %}
-				<h2>Der Bytespeicher ist <span class="orange">undefiniert</span>.</h2>
+				<h2>Der {{ data.space }} ist <span class="orange">undefiniert</span>.</h2>
 			{% else %}
-				<h2>Der Bytespeicher ist <span class="red">geschlossen</span>.</h2>
+				<h2>Der {{ data.space }} ist <span class="red">geschlossen</span>.</h2>
 			{% endif %}
 			<p>{{ data.state.message }}</p>
 			{% if data.sensors.people_now_present %}
