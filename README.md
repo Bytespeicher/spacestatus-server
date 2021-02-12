@@ -5,6 +5,57 @@ Flask/Connexion based web application providing a hackspace status website and J
 * Application not usable in multiprocess environment
 (gunicorn will work in threading mode)
 
+## Provided endpoints
+### GET
+| Endpoint | Description |
+| --- | --- |
+| **/** | rendered template from templates/home.html |
+| **/status.json** | Hackspace API JSON file |
+| **/status-minimal.json** | JSON file with state and state icon |
+| **/static/{images,js,css}/{filename}** | Files from static folder |
+
+### PUT
+<table>
+  <tr>
+    <th>Endpoint</th>
+    <th>Description</th>
+    <th>Example</th>
+  </tr>
+  <tr>
+    <td><b>/api/v1/status</b></td>
+    <td>Set status<br /><br />Temperature Sensor could also be added.</td>
+    <td>
+      <pre>{
+  "sensors": {
+    "people_now_present": [{
+      "value": 0,
+      "names": []
+    }]
+  },
+  "state": {
+    "open": false,
+    "lastchange": 1612387891,
+    "message": "No devices connected"
+  }
+}</pre>
+    </td>
+  </tr>
+  <tr>
+    <td><b>/api/v1/sensors/temperature</b></td>
+    <td>Set temperature sensors</td>
+    <td>
+      <pre>{
+  "sensors": {
+    "temperature": [
+      { "value": 12.81, "unit": "°C", "location": "Hackspace" },
+      { "value": -6.44, "unit": "°C", "location": "Outside" }
+    ]
+  }
+}</pre>
+    </td>
+  </tr>
+</table>
+
 ## Dependencies
 ### System (Debian-related)
 * git
