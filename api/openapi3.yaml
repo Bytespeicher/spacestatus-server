@@ -23,8 +23,17 @@ paths:
     get:
       tags:
         - Status
-      operationId: app.status.json
+      operationId: app.status.status
       summary: Status of the hackspace
+      responses:
+        200:
+          description: OK
+  /status-minimal.json:
+    get:
+      tags:
+        - Status
+      operationId: app.status.statusMinimal
+      summary: Minimal status of the hackspace with current state icon
       responses:
         200:
           description: OK

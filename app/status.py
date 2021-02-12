@@ -43,7 +43,7 @@ def static(filetype, filename):
     return response
 
 
-def json() -> dict:
+def status() -> dict:
     """Response the request for /status.json with the complete api output.
 
     Returns
@@ -52,6 +52,27 @@ def json() -> dict:
         Dictionary with all api data for the requested host
     """
     return data().get(connexion.request.headers['Host'])
+
+
+def statusMinimal() -> dict:
+    """
+    Response the request for /status-minimal.json with
+    a minimal status output.
+
+    Returns
+    -------
+    dict
+        Dictionary with minimal status data for the requested host
+    """
+    json = data().get(connexion.request.headers['Host'])
+    minimal = {
+        'open': json['state']['open'],
+        'icon':
+            json['state']['icon']['open']
+            if json['state']['open']
+            else json['state']['icon']['closed']
+    }
+    return minimal
 
 
 def __updateTemperature(host: str, received: dict):
