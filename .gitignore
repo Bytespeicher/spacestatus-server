@@ -1,5 +1,13 @@
 # Configuration
 config/config.yaml
 
+# API Data
+config/apidata/*.json
+!config/apidata/status.example.org.json
+
+# Cache
+config/cache/*
+!config/cache/.gitkeep
+
 # Byte-compiled / optimized / DLL files
 __pycache__/

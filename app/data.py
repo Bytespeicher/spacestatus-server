@@ -96,6 +96,21 @@ class data:
                 self.__data[host]['state']['lastchange']
             )
 
+    def getSpace(self, host: str) -> str:
+        """Get space name
+
+        Parameters
+        ----------
+        host : str
+            Hostname
+
+        Returns
+        -------
+        str
+            Name of space
+        """
+        return self.__data[host]['space']
+
     def setSensorsPeople(self, host: str, people: list):
         """Set sensor data for people
 
