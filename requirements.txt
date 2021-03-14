@@ -2,6 +2,8 @@ connexion>=2.7.0
 Flask>=1.1.2
 Flask-Executor>=0.9.4
 matrix-nio>=0.17.0
+multidict>=4.7.6 --only-binary=multidict
 pydeepmerge>=0.3.2
 python-twitter>=3.5
 safer>=4.4.0
+yarl>=1.6.0 --only-binary=yarl
