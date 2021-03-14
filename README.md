@@ -1,6 +1,10 @@
 # Spacestatus Server
 Flask/Connexion based web application providing a hackspace status website and JSON frontend for [spaceAPI](http://spaceapi.net).
 
+## Plugins (to post status change)
+* Twitter
+* Matrix
+
 ## Known limitations
 * Application not usable in multiprocess environment
 (gunicorn will work in threading mode)

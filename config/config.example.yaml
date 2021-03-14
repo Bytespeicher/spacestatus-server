@@ -18,6 +18,12 @@ hosts:
           name:
             - "The space"
             - "Example space"
+      matrix:
+        enabled: true
+        homeserver: "https://chat.example.org"
+        username: "@spacestatus:example.org"
+        password: "THIS_IS_THE_MATRIX_USER_PASSWORD"
+        room: "!ABCDEFGHIJKLMNOPQR:chat.example.org"
 plugins:
   twitter:
     wordlist:
