@@ -34,8 +34,7 @@ class twitter(app.plugin.plugin):
         'access.token',
         'access.secret',
         'consumer.key',
-        'consumer.secret',
-        # 'admin'
+        'consumer.secret'
     ]
 
     # Twitter API instances
