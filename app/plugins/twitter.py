@@ -37,6 +37,9 @@ class twitter(app.plugin.plugin):
         'consumer.secret'
     ]
 
+    # Maximum retries to post message
+    __maxRetries = 3
+
     # Twitter API instances
     __twitterApi = {}
 
@@ -139,17 +142,29 @@ class twitter(app.plugin.plugin):
 
         phrase = phrase.rstrip()
 
-        # Push status message to twitter
-        try:
-            self.__getTwitterApi().PostUpdate(phrase)
-            print(
-                'Twitter: Send message "%s" for host %s successfull.' %
-                (phrase, self._getHost())
-            )
-        except twitterApi.error.TwitterError as e:
-            # Error sending message
-            print(
-                'ERROR: Send status message to Twitter for %s failed: %s' %
-                (self._getHost(), e),
-                file=sys.stderr
-            )
+        retry = 0
+        while retry < self.__maxRetries:
+            # Push status message to twitter
+            try:
+                self.__getTwitterApi().PostUpdate(phrase)
+                print(
+                    'Twitter: Send message "%s" for host %s successfull.' %
+                    (phrase, self._getHost())
+                )
+                retry = self.__maxRetries
+            except twitterApi.error.TwitterError as e:
+                # Error sending message
+                print(
+                    'ERROR: Send status message to Twitter for %s failed: %s' %
+                    (self._getHost(), e),
+                    file=sys.stderr
+                )
+                retry = self.__maxRetries
+            except requests.exceptions.ConnectionError as e:
+                # Error sending message
+                print(
+                    'ERROR: Twitter connection error for %s: %s' %
+                    (self._getHost(), e),
+                    file=sys.stderr
+                )
+                retry += 1
