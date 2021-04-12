@@ -12,7 +12,7 @@ class twitter(app.plugin.plugin):
     Plugin to post message on state change to Twitter
     """
 
-    # Default wordlist
+    # Default config
     _configDefault = {
         'wordlist': {
             'name': ["The space"],
@@ -25,7 +25,8 @@ class twitter(app.plugin.plugin):
                 'open': [],
                 'closed': []
             }
-        }
+        },
+        'timeout': 30,
     }
 
     # Required configuration values
@@ -57,7 +58,7 @@ class twitter(app.plugin.plugin):
                 consumer_secret=hostConfig['consumer']['secret'],
                 access_token_key=hostConfig['access']['token'],
                 access_token_secret=hostConfig['access']['secret'],
-                timeout=10
+                timeout=hostConfig['timeout']
             )
 
             # Check credentials

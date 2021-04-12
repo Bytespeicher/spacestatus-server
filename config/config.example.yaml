@@ -8,6 +8,7 @@ hosts:
     plugins:
       twitter:
         enabled: true
+        # timeout: 30
         access:
           token: THIS_IS_THE_ACCESS_TOKEN
           secret: THIS_IS_THE_ACCESS_SECRET
