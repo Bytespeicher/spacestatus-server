@@ -3,6 +3,7 @@ import glob
 import json
 import os
 import safer
+import time
 
 from app.config import config
 
@@ -60,7 +61,7 @@ class data:
 
         return True
 
-    def get(self, host: str) -> dict:
+    def get(self, host: str, includeAdditionalData: bool = False) -> dict:
         """Get full api data for host
 
         Parameters
@@ -71,10 +72,19 @@ class data:
         Returns
         -------
         dict
-            Dictionary with api data
+            Dictionary with api data except additional data
         """
         if host in self.__data:
-            return self.__data[host]
+            if includeAdditionalData:
+                return self.__data[host]
+            else:
+                # Return api data from dictionary except key additional_data
+                return {
+                    k: self.__data[host][k]
+                    for k in set(self.__data[host].keys()).difference(
+                        {'additional_data'}
+                    )
+                }
         else:
             return {}
 
@@ -134,6 +144,13 @@ class data:
             List of dict with temperature information from hackspace api
         """
         self.__data[host]['sensors']['temperature'] = temperature
+        self.__data[host].update({
+            'additional_data':  {
+                'lastChange': {
+                    'temperature': int(time.time())
+                }
+            }
+        })
 
     def removeSensorsTemperature(self, host: str) -> bool:
         """Remove sensor data for temperatur
@@ -150,6 +167,9 @@ class data:
         """
         try:
             self.__data[host]['sensors'].pop('temperature')
+            self.__data[host]['additional_data']['lastChange'].pop(
+                'temperature'
+            )
         except KeyError:
             return False
             pass
