@@ -18,7 +18,7 @@ def home() -> str:
     return \
         flask.render_template(
             'home.html',
-            data=data().get(connexion.request.headers['Host'])
+            data=data().get(connexion.request.headers['Host'], True)
         )
 
 
