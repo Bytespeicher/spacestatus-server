@@ -40,6 +40,30 @@ class data:
             filename = 'config/apidata/%s' % hostfile
             with open(filename, 'r') as f:
                 self.__data[host] = json.load(f)
+            self.__updateStructure(host)
+
+    def __updateStructure(self, host: str):
+        """Update data structure for new version
+
+        Parameters
+        ----------
+        host : str
+            Hostname
+
+        """
+        # Add lastchange for temperature sensors
+        try:
+            test = (self.__data[host]
+                    ['additional_data']['lastchange']['temperature'])
+        except KeyError:
+            print('Update: Add last change of temperature for %s ...' % host)
+            self.__data[host].update({
+                'additional_data':  {
+                    'lastchange': {
+                        'temperature': 0
+                    }
+                 }
+            })
 
     def commit(self, host: str) -> bool:
         """Persist current API information to file
@@ -146,7 +170,7 @@ class data:
         self.__data[host]['sensors']['temperature'] = temperature
         self.__data[host].update({
             'additional_data':  {
-                'lastChange': {
+                'lastchange': {
                     'temperature': int(time.time())
                 }
             }
@@ -167,7 +191,7 @@ class data:
         """
         try:
             self.__data[host]['sensors'].pop('temperature')
-            self.__data[host]['additional_data']['lastChange'].pop(
+            self.__data[host]['additional_data']['lastchange'].pop(
                 'temperature'
             )
         except KeyError:
