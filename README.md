@@ -137,3 +137,40 @@ After your installation spacestatus-server serves on port 5000 on all interfaces
     sudo systemctl daemon-reload
     sudo systemctl enable spacestatus-server.service --now
     ```
+## Update
+
+### Spacestatus server
+
+1. Change to spacestatus user
+    ```shell
+    sudo su - spacestatus
+    ```
+
+2. Update repository
+    ```shell
+    cd spacestatus-server
+    git pull
+    ```
+
+3. Update virtual environment
+    ```shell
+    cd
+    python3 -m venv --upgrade virtualenv3
+    ```
+
+4. Update python requirements in virtual environment
+    ```shell
+    cd
+    . virtualenv3/bin/activate
+    pip3 install --upgrade wheel
+    pip3 install --upgrade -r spacestatus-server/requirements.txt
+    pip3 install --upgrade gunicorn
+    deactivate
+    ```
+
+5. Adjust configuration file config/config.yaml
+
+6. Restart systemd daemon
+    ```shell
+    sudo systemctl restart spacestatus-server.service
+    ```
