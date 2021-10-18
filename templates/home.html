@@ -79,7 +79,7 @@
 			{% endif %}
 			<p>
 				{% for temp in data.sensors.temperature %}
-				<strong>{{ temp.location|capitalize }}:</strong> {{ temp.value }} {{ temp.unit }}<br/>
+				<strong>{{ temp.location|capitalize }}:</strong> {{ "%.2f"|format(temp.value) }} {{ temp.unit }}<br/>
 				{% endfor %}
 			</p>
 			{% endif %}
