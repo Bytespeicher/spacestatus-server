@@ -30,6 +30,8 @@
         <link rel="icon" href="data:;base64,iVBORw0KGgo=">	
 	
 	<style>
+		h4 { margin: 0; }
+		.small { font-size: 12px; }
 		.green { color: #3d9f35; }
 		.red   { color: #832c2c; }
 		.orange{ color: #a28c2c; }
@@ -69,7 +71,12 @@
 			{% endif %}
 			<p><strong>Letzte Änderung:</strong> {{ data.state.lastchange | strftime('%d.%m.%Y um %H:%M:%S')}}</p>
 			{% if data.sensors.temperature %}
-			<h4>Temperatur</h4>
+			<h4>Temperatur(en)</h4>
+			{% if data.additional_data.lastchange.temperature != 0 %}
+			<p class="small">Letzte Aktualsisierung am </strong> {{ data.additional_data.lastchange.temperature | strftime('%d.%m.%Y um %H:%M:%S')}}</p>
+			{% else %}
+			<p class="small">Letzte Aktualaisierung unbekannt</p>
+			{% endif %}
 			<p>
 				{% for temp in data.sensors.temperature %}
 				<strong>{{ temp.location|capitalize }}:</strong> {{ temp.value }} {{ temp.unit }}<br/>
