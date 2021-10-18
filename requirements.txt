@@ -7,3 +7,4 @@ pydeepmerge>=0.3.2
 python-twitter>=3.5
 safer>=4.4.0
 yarl>=1.6.0 --only-binary=yarl
+werkzeug>=2.0
