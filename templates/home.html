@@ -73,9 +73,9 @@
 			{% if data.sensors.temperature %}
 			<h4>Temperatur(en)</h4>
 			{% if data.additional_data.lastchange.temperature != 0 %}
-			<p class="small">Letzte Aktualsisierung am </strong> {{ data.additional_data.lastchange.temperature | strftime('%d.%m.%Y um %H:%M:%S')}}</p>
+			<p class="small">Letzte Aktualisierung am </strong> {{ data.additional_data.lastchange.temperature | strftime('%d.%m.%Y um %H:%M:%S')}}</p>
 			{% else %}
-			<p class="small">Letzte Aktualaisierung unbekannt</p>
+			<p class="small">Letzte Aktualisierung unbekannt</p>
 			{% endif %}
 			<p>
 				{% for temp in data.sensors.temperature %}
