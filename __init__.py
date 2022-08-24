@@ -2,6 +2,8 @@ import connexion
 import errno
 import sys
 
+from flask_cors import CORS
+
 from app.config import config
 from app.data import data
 from app.pluginCollection import pluginCollection
@@ -23,6 +25,9 @@ def initApp() -> connexion:
 
     # Read the openapi yaml file to configure the endpoints
     app.add_api('api/openapi3.yaml', options={"swagger_ui": False})
+
+    # Add CORS support
+    CORS(app.app)
 
     # Initialize own jinja2 filters
     templateFilters.initialize(app)

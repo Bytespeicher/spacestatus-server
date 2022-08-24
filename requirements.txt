@@ -1,5 +1,6 @@
 connexion>=2.7.0
 Flask>=1.1.2
+Flask-Cors>=3.0.10
 Flask-Executor>=0.9.4
 matrix-nio>=0.17.0
 multidict>=4.7.6 --only-binary=multidict
