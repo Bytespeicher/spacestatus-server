@@ -36,7 +36,7 @@ def static(filetype, filename):
         flask.send_from_directory(
             'static/%s' % filetype,
             filename,
-            add_etags=True,
+            etag=True,
             conditional=True
         )
     response.direct_passthrough = False
