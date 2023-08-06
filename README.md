@@ -3,8 +3,8 @@ Flask/Connexion based web application providing a hackspace status website and J
 
 ## Plugins (to post status change)
 * Mastodon *(API permissions: read:accounts, write:statuses)*
-* Twitter
 * Matrix
+* Twitter
 
 ## Known limitations
 * Application not usable in multiprocess environment
