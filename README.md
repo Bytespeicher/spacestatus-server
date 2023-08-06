@@ -2,6 +2,7 @@
 Flask/Connexion based web application providing a hackspace status website and JSON frontend for [spaceAPI](http://spaceapi.net).
 
 ## Plugins (to post status change)
+* Mastodon *(API permissions: read:accounts, write:statuses)*
 * Twitter
 * Matrix
 
@@ -63,7 +64,7 @@ Flask/Connexion based web application providing a hackspace status website and J
 ## Dependencies
 ### System (Debian-related)
 * git
-* python3 (>=3.7)
+* python3 (>=3.7, tested with 3.11)
 * python3-venv
 
 ### Python modules
