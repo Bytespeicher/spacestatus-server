@@ -10,6 +10,12 @@ hosts:
         enabled: true
         base_url: "https://example.social"
         access_token: THIS_IS_THE_ACCESS_TOKEN
+      matrix:
+        enabled: true
+        homeserver: "https://chat.example.org"
+        username: "@spacestatus:example.org"
+        password: "THIS_IS_THE_MATRIX_USER_PASSWORD"
+        room: "!ABCDEFGHIJKLMNOPQR:chat.example.org"
       twitter:
         enabled: true
         # timeout: 30
@@ -23,12 +29,6 @@ hosts:
           name:
             - "The space"
             - "Example space"
-      matrix:
-        enabled: true
-        homeserver: "https://chat.example.org"
-        username: "@spacestatus:example.org"
-        password: "THIS_IS_THE_MATRIX_USER_PASSWORD"
-        room: "!ABCDEFGHIJKLMNOPQR:chat.example.org"
 plugins:
   mastodon:
     wordlist:
