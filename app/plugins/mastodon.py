@@ -141,7 +141,10 @@ class mastodon(app.plugin.plugin):
         while retry < self.__maxRetries:
             # Push status message to mastodon
             try:
-                self.__getMastodonApi().toot(phrase)
+                self.__getMastodonApi().status_post(
+                    phrase,
+                    visibility='unlisted'
+                )
                 print(
                     'Mastodon: Send message "%s" for host %s successfull.' %
                     (phrase, self._getHost())
