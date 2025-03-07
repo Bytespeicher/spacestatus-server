@@ -1,12 +1,13 @@
-connexion>=2.7.0
-Flask>=2.0
-Flask-Cors>=3.0.10
-Flask-Executor>=0.9.4
-Mastodon.py>=1.8.1
-matrix-nio>=0.17.0
-multidict>=4.7.6 --only-binary=multidict
-pydeepmerge>=0.3.2
+connexion[flask,uvicorn]>=3.2.0
+Flask>=3.1.0
+flask_cors>=5.0.1
+Flask_Executor>=1.0.0
+Mastodon.py>=2.0.1
+matrix_nio>=0.25.2
+multidict>=6.1.0 --only-binary=multidict
+pydeepmerge>=0.3.3
 python-twitter>=3.5
-safer>=4.4.0
-yarl>=1.6.0 --only-binary=yarl
-werkzeug>=2.0
+PyYAML>=6.0.2
+safer>=5.1.0
+yarl>=1.18.3 --only-binary=yarl
+Werkzeug>=3.1.3

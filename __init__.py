@@ -21,7 +21,7 @@ def initApp() -> connexion:
     """
 
     # Create the application instance
-    app = connexion.App("Hackspace Status API", specification_dir='./')
+    app = connexion.FlaskApp("Hackspace Status API", specification_dir='./')
 
     # Read the openapi yaml file to configure the endpoints
     app.add_api('api/openapi3.yaml', options={"swagger_ui": False})
@@ -44,7 +44,7 @@ def initApp() -> connexion:
 
 if __name__ == '__main__':
     # Start application directly if we're running in stand alone mode
-    initApp().run(host='0.0.0.0', port=5000, debug=True, threaded=True)
+    initApp().run(host='0.0.0.0', port=5000)
 else:
     # Start application and set app context for running on wsgi servers
     app = initApp()
