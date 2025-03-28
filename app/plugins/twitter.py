@@ -129,16 +129,20 @@ class twitter(app.plugin.plugin):
 
         # Sometimes add adjective with first upper case
         if (random.choice([True, False])):
-            if stateOpen:
-                phrase += \
-                    random.choice(
-                        wordlist['adjective']['open']
-                    ).title() + "!"
-            else:
-                phrase += \
-                    random.choice(
-                        wordlist['adjective']['closed']
-                    ).title() + "!"
+            try:
+                if stateOpen:
+                    phrase += \
+                        random.choice(
+                            wordlist['adjective']['open']
+                        ).title() + "!"
+                else:
+                    phrase += \
+                        random.choice(
+                            wordlist['adjective']['closed']
+                        ).title() + "!"
+            except IndexError as e:
+                # Ignore empty adjective list
+                pass
 
         phrase = phrase.rstrip()
 

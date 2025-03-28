@@ -19,6 +19,9 @@ class plugin(ABC):
     # Configuration
     _config = {}
 
+    # Hostname of request
+    _hostname = None
+
     def getName(self) -> str:
         return self.__class__.__name__
 
@@ -88,10 +91,17 @@ class plugin(ABC):
     def _getConfig(self) -> dict:
         return self._config[self._getHost()]
 
+    def _setHost(self, host: str):
+        self._host = host
+
     def _getHost(self) -> str:
-        return connexion.request.headers['Host']
+        return self._host
+
+    def onStateOpenChangeForHost(self, host: str, stateOpen: bool):
+        self._setHost(host)
+        self.onStateOpenChange(stateOpen)
 
     @abstractmethod
-    def onStateOpenChange(self, stateOpen: bool):
+    def onStateOpenChange(self, host: str, stateOpen: bool):
         """The method will be executed on state change"""
         raise NotImplementedError

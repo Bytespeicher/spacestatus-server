@@ -6,7 +6,7 @@ After=network.target
 User=spacestatus
 WorkingDirectory=/home/spacestatus/spacestatus-server
 Environment=PYTHONUNBUFFERED=1
-ExecStart=/home/spacestatus/virtualenv3/bin/gunicorn --enable-stdio-inheritance --workers 1 --bind [::]:5000 __init__:app
+ExecStart=/home/spacestatus/virtualenv3/bin/gunicorn --enable-stdio-inheritance --worker-class uvicorn.workers.UvicornWorker --workers 1 --bind [::]:5000 __init__:app
 Restart=no
 
 [Install]

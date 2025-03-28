@@ -54,9 +54,6 @@ class mastodon(app.plugin.plugin):
 
             # Initialize mastodon api instance for host
             self.__mastodonApi[host] = Mastodon(
-                #cliend_id=hostConfig['access']['client_id'],
-                #client_secret=hostConfig['access']['client_secret'],
-                #access_token=hostConfig['access']['access_token'],
                 access_token=hostConfig['access_token'],
                 api_base_url=hostConfig['base_url']
             )
@@ -65,10 +62,13 @@ class mastodon(app.plugin.plugin):
             try:
                 verifyCredentials =\
                     self.__mastodonApi[host].account_verify_credentials()
-                #print('DEBUG: %s' % verifyCredentials)
                 print(
-                    'Mastodon: Credentials for %s on server %s for %s verified.' %
-                    (verifyCredentials.display_name, hostConfig['base_url'], host)
+                    'Mastodon: Credentials for %s on server %s '
+                    'for %s verified.' % (
+                        verifyCredentials.display_name,
+                        hostConfig['base_url'],
+                        host
+                    )
                 )
             except mastodonApi.errors.MastodonError as e:
                 # Credentials wrong, remove instance and output error message
@@ -124,16 +124,20 @@ class mastodon(app.plugin.plugin):
 
         # Sometimes add adjective with first upper case
         if (random.choice([True, False])):
-            if stateOpen:
-                phrase += \
-                    random.choice(
-                        wordlist['adjective']['open']
-                    ).title() + "!"
-            else:
-                phrase += \
-                    random.choice(
-                        wordlist['adjective']['closed']
-                    ).title() + "!"
+            try:
+                if stateOpen:
+                    phrase += \
+                        random.choice(
+                            wordlist['adjective']['open']
+                        ).title() + "!"
+                else:
+                    phrase += \
+                        random.choice(
+                            wordlist['adjective']['closed']
+                        ).title() + "!"
+            except IndexError as e:
+                # Ignore empty adjective list
+                pass
 
         phrase = phrase.rstrip()
 
@@ -153,8 +157,11 @@ class mastodon(app.plugin.plugin):
             except mastodonApi.error.MastodonError as e:
                 # Error sending message
                 print(
-                    'ERROR: Send status message to Mastodon for %s failed: %s' %
-                    (self._getHost(), e),
+                    'ERROR: Send status message to Mastodon for %s failed: '
+                    '%s' % (
+                        self._getHost(),
+                        e
+                    ),
                     file=sys.stderr
                 )
                 retry = self.__maxRetries

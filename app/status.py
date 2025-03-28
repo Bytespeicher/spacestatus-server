@@ -75,19 +75,19 @@ def statusMinimal() -> dict:
     return minimal
 
 
-def __updateTemperature(host: str, received: dict):
+def __updateTemperature(host: str, body: dict):
     """Update sensor temperature data
 
     Parameters
     ----------
-    received : dict
+    body : dict
         Received api data
     """
     try:
-        if len(received['sensors']['temperature']) > 0:
+        if len(body['sensors']['temperature']) > 0:
             data().setSensorsTemperature(
                 host,
-                received['sensors']['temperature']
+                body['sensors']['temperature']
             )
         else:
             data().removeSensorsTemperature(host)
@@ -95,54 +95,56 @@ def __updateTemperature(host: str, received: dict):
         pass
 
 
-def set(received: dict):
+def set(body: dict):
     """Set data received by api
 
     Parameters
     ----------
-    received : dict
+    body : dict
         Received api data
     """
     # Get requested host
     host = connexion.request.headers['Host']
 
     # Update current sensor people data
-    data().setSensorsPeople(host, received['sensors']['people_now_present'])
+    data().setSensorsPeople(host, body['sensors']['people_now_present'])
 
     # Update current sensor temperature data
-    __updateTemperature(host, received)
+    __updateTemperature(host, body)
 
     # Update open state if changes
-    if (data().getStateOpen(host) != received['state']['open']):
-        data().setStateOpen(host, received['state']['open'])
+    if (data().getStateOpen(host) != body['state']['open']):
+        data().setStateOpen(host, body['state']['open'])
         # Run plugin hook
-        pluginCollection().onStateOpenChange(received['state']['open'])
+        pluginCollection().onStateOpenChangeForHost(
+            host, body['state']['open']
+        )
 
     # Update or remove state message
     try:
-        data().setStateMessage(host, received['state']['message'])
+        data().setStateMessage(host, body['state']['message'])
     except KeyError:
         data().setStateMessage(host, None)
 
-    data().setStateLastchange(host, received['state']['lastchange'])
+    data().setStateLastchange(host, body['state']['lastchange'])
     data().commit(host)
 
     return connexion.NoContent, 200
 
 
-def setTemperature(received: dict):
+def setTemperature(body: dict):
     """Set data received by api
 
     Parameters
     ----------
-    received : dict
+    body : dict
         Received api data
     """
     # Get requested host
     host = connexion.request.headers['Host']
 
     # Update current sensor temperature data
-    __updateTemperature(host, received)
+    __updateTemperature(host, body)
 
     data().commit(host)
 
