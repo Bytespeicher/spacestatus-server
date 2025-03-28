@@ -98,7 +98,7 @@ class pluginCollection:
         if self.__executor is None:
             self.__executor = flask_executor.Executor(flask.current_app)
 
-    def onStateOpenChange(self, stateOpen: bool):
+    def onStateOpenChangeForHost(self, host: str, stateOpen: bool):
         """
         Run plugin functions on state chage
         """
@@ -118,7 +118,8 @@ class pluginCollection:
                 self.__executor.futures.pop(executorName)
                 self.__executor.submit_stored(
                     executorName,
-                    plugin.onStateOpenChange,
+                    plugin.onStateOpenChangeForHost,
+                    host,
                     stateOpen
                 )
                 print(

@@ -1,6 +1,10 @@
 # Spacestatus Server
 Flask/Connexion based web application providing a hackspace status website and JSON frontend for [spaceAPI](http://spaceapi.net).
 
+## Changelog
+
+For most recent updates and breaking changes always check [Changelog](CHANGELOG.md).
+
 ## Plugins (to post status change)
 * Mastodon *(API permissions: read:accounts, write:statuses)*
 * Matrix
@@ -110,7 +114,6 @@ After your installation spacestatus-server serves on port 5000 on all interfaces
     . virtualenv3/bin/activate
     pip3 install wheel
     pip3 install -r spacestatus-server/requirements.txt
-    pip3 install gunicorn
     deactivate
     ```
 5. Copy example configuration files
@@ -165,7 +168,6 @@ After your installation spacestatus-server serves on port 5000 on all interfaces
     . virtualenv3/bin/activate
     pip3 install --upgrade wheel
     pip3 install --upgrade -r spacestatus-server/requirements.txt
-    pip3 install --upgrade gunicorn
     deactivate
     ```
 
