@@ -26,7 +26,7 @@ def auth(token: str, required_scopes=None) -> dict:
     elif (isinstance(authKey, dict)):
         # Validate against url rule name auth key
         try:
-            if token == authKey[str(connexion.request.url_rule)]:
+            if token == authKey[str(connexion.request.url.path)]:
                 return {}
         except KeyError:
             pass
