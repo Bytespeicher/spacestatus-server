@@ -1,4 +1,10 @@
 # Spacestatus Server
+
+**CAUTION: This repository has been migrated to codeberg, and now lives at [codeberg.org/technikkultur-erfurt/spacestatus-server](https://codeberg.org/technikkultur-erfurt/spacestatus-server).**
+**This repository is now an archive.**
+
+---
+
 Flask/Connexion based web application providing a hackspace status website and JSON frontend for [spaceAPI](http://spaceapi.net).
 
 ## Changelog
